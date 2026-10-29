@@ -27,7 +27,7 @@ make
 
 2. Запуск сервера:
 ```bash
-./server_static -T float -H SHA1 -S server
+./server_static -H SHA1 -S server
 ```
 
 3. Очистка временных файлов компиляции:
