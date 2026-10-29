@@ -16,13 +16,12 @@ public:
     ServerApp() : port(33333), log_path("vcalc.log") {}
 
     int run(int argc, char* argv[]) {
-        std::string data_type, hash_type, salt_side;
+        std::string hash_type, salt_side;
 
         try {
             po::options_description desc("Доступные параметры");
             desc.add_options()
                 ("help,h", "Показать справку")
-                ("type,T", po::value<std::string>(&data_type)->required(), "Тип данных (float)")
                 ("hash,H", po::value<std::string>(&hash_type)->required(), "Тип хэша (SHA1)")
                 ("salt,S", po::value<std::string>(&salt_side)->required(), "Сторона соли (server)")
                 ("log,l", po::value<std::string>(&log_path)->default_value("vcalc.log"), "Путь к файлу логов");
@@ -37,9 +36,9 @@ public:
 
             po::notify(vm);
 
-            if (hash_type != "SHA1" || salt_side != "server" || data_type != "float") {
+            if (hash_type != "SHA1" || salt_side != "server") {
                 std::cerr << "[Критическая ошибка] Параметры не соответствуют требуемым\n"
-                          << "Требуется запускать: -T float -H SHA1 -S server" << std::endl;
+                          << "Требуется запускать: -H SHA1 -S server" << std::endl;
                 return 1;
             }
 
